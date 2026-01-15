@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -27,7 +28,7 @@ import java.util.Map;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeService  employeeService;
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -71,4 +72,19 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+
+    /**
+     * 新增员工
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping
+    public Result save(@RequestBody EmployeeDTO employeeDTO) {//如果是Json格式的数据要用Requestbody注解
+        log.info("新增员工，员工数据：{}", employeeDTO);
+        employeeService.save(employeeDTO);
+        return Result.success();
+
+    }
 }
