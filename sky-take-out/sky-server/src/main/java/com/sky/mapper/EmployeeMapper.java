@@ -37,4 +37,6 @@ public interface EmployeeMapper {
      * @param employee
      */
     void startOrStop(Employee employee);
+
+    Employee getById(Long id);
 }

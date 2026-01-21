@@ -25,5 +25,9 @@
         </set>
         WHERE id = #{id}
     </select>
+    <select id="getById" resultType="com.sky.entity.Employee">
+        SELECT * FROM employee WHERE id = #{id}
+
+    </select>
 
 </mapper>
