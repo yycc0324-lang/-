@@ -1,16 +1,20 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -96,5 +101,33 @@ public class EmployeeServiceImpl implements EmployeeService {
         * */
         employeeMapper.insert(employee);
     }
+
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        //分页查询使用PageHelper去封装，此处用到插件是mybatis-pagehelper
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        //获取分页结果，写好方法到EmployeeMapper中
+        Page<Employee>  page = employeeMapper.pageQuery(employeePageQueryDTO);
+        //对page进行处理成pageresult
+        long total = page.getTotal();//总数
+        List records = page.getResult();//获取数据，total和records都是文档要求且企业中固定需要分页查询这样写的写法
+        return new PageResult(total, records);//可以在返回页直接new一个PageResult
+    }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+              /*  Employee employee = Employee.builder()
+                        .status(status)
+                        .id(id)
+                        .updateTime(LocalDateTime.now())
+                        .updateUser(BaseContext.getCurrentId())
+                        .build();*/
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+        employeeMapper.startOrStop(employee);
+
+    }
+
 
 }
