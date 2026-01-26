@@ -114,4 +114,18 @@ public class EmployeeController {
         Employee employee = employeeService.getById(id);
         return Result.success(employee);//返回员工数据是需要查询，在getbyid中写个范型来规范写法
     }
+
+
+    /**
+     * 编辑员工信息
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
 }
