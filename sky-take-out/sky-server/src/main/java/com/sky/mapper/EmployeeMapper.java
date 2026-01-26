@@ -39,4 +39,10 @@ public interface EmployeeMapper {
     void startOrStop(Employee employee);
 
     Employee getById(Long id);
+
+    /**
+     * 编辑员工信息
+     * @param employee
+     */
+    void update(Employee employee);
 }
