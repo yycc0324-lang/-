@@ -92,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         //TODO 设置创建人和修改人ID，即登陆用户，先写死
-        employee.setCreateUser(BaseContext.getCurrentId());
+    employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
 
 
