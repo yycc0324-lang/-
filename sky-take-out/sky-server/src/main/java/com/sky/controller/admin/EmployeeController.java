@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 员工管理
  */
-@RestController
+@RestController//这个东西的作用是返回json数据
 @RequestMapping("/admin/employee")
 @Slf4j
 public class EmployeeController {
