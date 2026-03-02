@@ -4,14 +4,23 @@ server:
 spring:
   profiles:
     active: dev
+
   main:
     allow-circular-references: true
+
   datasource:
     druid:
       driver-class-name: ${sky.datasource.driver-class-name}
       url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: LYClyc...550
+
+  data: # Spring Boot 3.x 使用这个前缀
+    redis:
+      host: ${sky.redis.host}  # Redis服务器地址
+      port: ${sky.redis.port}      # Redis服务器端口
+      password:      # 密码，没有则留空或注释掉
+      database:  ${sky.redis.database}      #数据库的索引，使用0号数据库，在redis客户端中可以查看访问
 
 mybatis:
   #mapper配置文件
@@ -37,3 +46,4 @@ sky:
     admin-ttl: 7200000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
