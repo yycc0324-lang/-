@@ -8,8 +8,13 @@ import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface DishMapper {
+
+
+
 
     /**
      * 根据分类id查询菜品数量
@@ -64,4 +69,6 @@ public interface DishMapper {
      */
     @Select("select * from dish where category_id = #{categoryId}")
     Page<Dish> getByCategory(Long categoryId);
+
+    List<Dish> list(Dish dish);
 }
