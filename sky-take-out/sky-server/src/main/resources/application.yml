@@ -10,17 +10,17 @@ spring:
 
   datasource:
     druid:
-      driver-class-name: ${sky.datasource.driver-class-name}
-      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${sky.datasource.username}
-      password: ${sky.datasource.password}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/sky_take_out?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: your_mysql_password_here
 
   data: # Spring Boot 3.x 使用这个前缀
     redis:
-      host: ${sky.redis.host}  # Redis服务器地址
-      port: ${sky.redis.port}      # Redis服务器端口
+      host: localhost  # Redis服务器地址
+      port: 6379      # Redis服务器端口
       password:      # 密码，没有则留空或注释掉
-      database:  ${sky.redis.database}      #数据库的索引，使用0号数据库，在redis客户端中可以查看访问
+      database: 0      #数据库的索引，使用0号数据库，在redis客户端中可以查看访问
 
 mybatis:
   #mapper配置文件
@@ -51,5 +51,5 @@ sky:
     user-ttl: 7200000000
     user-token-name: authentication
   wechat:
-    appid: wx1fc8a9d531b6a04e
-    secret: 18f69ccb6183568efadca3531c4e4a50
+    appid: your_wechat_appid_here
+    secret: your_wechat_secret_here
