@@ -4,3 +4,7 @@
 *.class
 *Test.java
 **/test/
+
+# 敏感配置文件
+**/application-dev.yml
+**/application-prod.yml

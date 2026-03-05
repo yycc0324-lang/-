@@ -12,8 +12,8 @@ spring:
     druid:
       driver-class-name: ${sky.datasource.driver-class-name}
       url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: LYClyc...550
+      username: ${sky.datasource.username}
+      password: ${sky.datasource.password}
 
   data: # Spring Boot 3.x 使用这个前缀
     redis:
@@ -46,4 +46,10 @@ sky:
     admin-ttl: 7200000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
-
+    # 用户端JWT配置
+    user-secret-key: itcast
+    user-ttl: 7200000000
+    user-token-name: authentication
+  wechat:
+    appid: wx1fc8a9d531b6a04e
+    secret: 18f69ccb6183568efadca3531c4e4a50
