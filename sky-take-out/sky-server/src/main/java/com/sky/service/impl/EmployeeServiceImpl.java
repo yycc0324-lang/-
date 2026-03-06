@@ -69,8 +69,8 @@ public class EmployeeServiceImpl implements EmployeeService {
  * 新增员工
  * @param employeeDTO
  */
-    @Override
-    public void save(EmployeeDTO employeeDTO) {
+@Override
+public void save(EmployeeDTO employeeDTO) {
         //前端返回的数据为了方便接受使用了DTO封装
         //现在需要给封装的属性拿出来，就可以使用拷贝
         Employee employee = new Employee();//先new一个属性一样的实体，然后把DTO的属性复制给实体
