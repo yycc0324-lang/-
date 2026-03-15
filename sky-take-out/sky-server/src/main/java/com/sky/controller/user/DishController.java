@@ -34,7 +34,7 @@ public class DishController {
     @GetMapping("/list")
     @ApiOperation("根据分类id查询菜品")
 
-    //想改造一下代码，把菜品的搜索放到redis缓存中，磁盘读写速度太慢，所以需要定义好key和value
+    //想改造一下代码，把菜品的搜索放到redis缓存中，磁盘读写速度太慢，所以需要定义好key和value（防止缓存穿透）
     public Result<List<DishVO>> list(Long categoryId) {
         String key = "dish_" + categoryId;//定义key就是菜的类的id
         //查redis中是否存在菜品数据
@@ -50,6 +50,10 @@ public class DishController {
         list = dishService.listWithFlavor(dish);
         redisTemplate.opsForValue().set(key, list);
         return Result.success(list);
+    }
+    //把清理缓存写成方法
+    private void clearCache(String pattern) {
+        redisTemplate.delete(redisTemplate.keys(pattern));
     }
 
 }

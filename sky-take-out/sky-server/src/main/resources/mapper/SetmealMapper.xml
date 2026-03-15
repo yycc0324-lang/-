@@ -17,4 +17,52 @@
             </if>
         </where>
     </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into setmeal (category_id, name, price, status, description, image, create_time, update_time, create_user, update_user)
+        values (#{categoryId}, #{name}, #{price}, #{status}, #{description}, #{image}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
+    </insert>
+
+    <select id="pageQuery" resultType="com.sky.vo.SetmealVO">
+        SELECT s.id, s.category_id as categoryId, s.name, s.price, s.status, s.description, s.image, s.update_time as updateTime, c.name as categoryName
+        FROM setmeal s LEFT JOIN category c ON s.category_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                and s.name like concat('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                and s.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and s.status = #{status}
+            </if>
+        </where>
+        order by s.create_time desc
+    </select>
+
+    <select id="getByIdWithCategory" resultType="com.sky.vo.SetmealVO">
+        SELECT s.id, s.category_id as categoryId, s.name, s.price, s.status, s.description, s.image, s.update_time as updateTime, c.name as categoryName
+        FROM setmeal s LEFT JOIN category c ON s.category_id = c.id
+        WHERE s.id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM setmeal WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.sky.entity.Setmeal">
+        UPDATE setmeal
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="image != null and image != ''">image = #{image},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>
+
