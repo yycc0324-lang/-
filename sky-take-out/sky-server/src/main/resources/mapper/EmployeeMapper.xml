@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.EmployeeMapper">
+
+    <select id="pageQuery" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="getById" resultType="com.sky.entity.Employee" parameterType="long">
+        select * from employee where id = #{id}
+    </select>
+
+    <update id="startOrStop" parameterType="com.sky.entity.Employee">
+        update employee
+        set status = #{status}
+        where id = #{id}
+    </update>
+
 </mapper>
